@@ -2,6 +2,12 @@
 require_once '../vendor/autoload.php';
 
 use \RobotWebHook\Client;
+use RobotWebHook\Exceptions\RobotWebHookException;
 
 $a = new Client();
-print_r($a->getConfig());
+
+try {
+    $a->markdown([]);
+} catch (RobotWebHookException $e) {
+    var_dump('捕获异常',$e->getMessage(),$e->getCode());
+}
