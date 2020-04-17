@@ -1,0 +1,29 @@
+# 本文件是git脚本
+# 文件的行尾自动转换。如果是文本文件，则在文件入Git库时，行尾自动转换为LF。如果已经在入Git库中的文件的行尾是GRLF，则文件在入Git库时，不再转换为LF。
+* text=auto
+
+# Visual Studio自定义
+*.cs     diff=csharp
+
+# MSysgit标准
+*.doc    diff=astextplain
+*.DOC    diff=astextplain
+*.docx   diff=astextplain
+*.DOCX   diff=astextplain
+*.dot    diff=astextplain
+*.DOT    diff=astextplain
+*.pdf    diff=astextplain
+*.PDF    diff=astextplain
+*.rtf    diff=astextplain
+*.RTF    diff=astextplain
+
+# composer 忽略无关文件  (export-ignore 意思是git压缩包 不加入这行内容)
+/.github export-ignore
+/.travis.yml export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.scrutinizer.yml export-ignore
+/.travis.yml export-ignore
+/.editorconfig export-ignore
+/Demo export-ignore
+/demo export-ignore

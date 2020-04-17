@@ -1,0 +1,33 @@
+{
+    "name": "carlo/robot-web-hook",
+    "description": "EN:This is a robot message push, supporting pin and enterprise wechat's robot web hook interface.ZH:这是一个机器人消息推送，支持钉钉和企业微信的机器人 web hook 接口。",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "carlo",
+            "email": "jiangbingjie1218@gmail.com"
+        }
+    ],
+    "keywords": [
+        "robot web hook",
+        "robot-web-hook",
+        "机器人消息推送",
+        "钉钉消息推送",
+        "企业微信消息推送",
+        "钉钉机器人",
+        "企业微信机器人"
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "php": ">=5.3.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "RobotWebHook\\": "src/"
+        }
+    }
+}

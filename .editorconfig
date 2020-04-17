@@ -1,0 +1,16 @@
+# 本文件是代码风格配置文件
+# 最顶层的 EditorConfig 文件
+root = true
+# 使用大括号扩展符号匹配多个文件
+[*]
+# Unix样式的换行符，换行符以每个文件结尾
+end_of_line = lf
+insert_final_newline = true
+# 设置默认字符集
+charset = utf-8
+
+# 制表符缩进（4空格）
+indent_style = space
+indent_size = 4
+#表示在行尾是否允许空格
+trim_trailing_whitespace = false
