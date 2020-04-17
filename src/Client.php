@@ -75,7 +75,7 @@ MARKDOWN
     public function send(array $data)
     {
 
-        $res = $this->httpPostJson($this->config['uri'], json_encode($data));
+        $res = $this->httpPostJson($this->config['web_hook_url'], json_encode($data));
         if ($res['httpCode'] != 200) {
             throw new RobotWebHookException($res['body'], $res['httpCode']);
         }
