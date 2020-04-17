@@ -20,10 +20,12 @@
     ],
     "minimum-stability": "stable",
     "require": {
+        "ext-curl": "*",
         "php": ">=5.4"
     },
     "require-dev": {
-        "php": ">=5.3.7"
+        "ext-curl": "*",
+        "php": ">=5.4"
     },
     "autoload": {
         "psr-4": {
