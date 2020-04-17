@@ -23,11 +23,11 @@ class Client
 
     /**
      * @param array $data
-     * @throws RobotWebHookException
+     * @return array
      */
-    function text(array $data)
+    function textExceptionFormat(array $data)
     {
-        $text = array(
+        $send_data = array(
             "content" => "异常警告:\n" . print_r(array(
                     'app_name' => isset($data['app_name']) ?: '',
                     'env'      => isset($data['env']) ?: '',
@@ -37,26 +37,19 @@ class Client
                     'line'     => isset($data['line']) ?: '',
                 ), true)
         );
-        isset($data['mentioned_list']) && $text["mentioned_list"] = $data["mentioned_list"];
-        isset($data['mentioned_mobile_list']) && $text["mentioned_mobile_list"] = $data["mentioned_mobile_list"];
-
-        $this->send(array(
-            "msgtype" => "text",
-            "text"    => $text
-        ));
+        isset($data['mentioned_list']) && $send_data["mentioned_list"] = $data["mentioned_list"];
+        isset($data['mentioned_mobile_list']) && $send_data["mentioned_mobile_list"] = $data["mentioned_mobile_list"];
+        return $send_data;
     }
 
     /**
      * @param array $data
-     * @throws RobotWebHookException
+     * @return array
      */
-    function markdown(array $data)
+    function markdownExceptionFormat(array $data)
     {
-        $this->send(array(
-            'msgtype'  => 'markdown',
-            'markdown' => [
-
-                'content' => <<<MARKDOWN
+        $send_data = [
+            'content' => <<<MARKDOWN
 ### app_name:<font color='warning'>{$data['app_name']}</font>\n
 >env:<font color='comment'>{$data['env']}</font>
 >file:<font color='comment'>{$this->getFormatString($data['file'])}</font>
@@ -64,7 +57,21 @@ class Client
 >code:<font color='comment'>{$data['code']}</font>
 >message:<font color='comment'>{$this->getFormatString($data['message'])}</font>
 MARKDOWN
-            ]
+        ];
+        isset($data['mentioned_list']) && $send_data["mentioned_list"] = $data["mentioned_list"];
+        isset($data['mentioned_mobile_list']) && $send_data["mentioned_mobile_list"] = $data["mentioned_mobile_list"];
+        return $send_data;
+    }
+
+    /**
+     * @param array $data
+     * @throws RobotWebHookException
+     */
+    function textSend(array $data)
+    {
+        $this->send(array(
+            "msgtype" => "text",
+            "text"    => $data
         ));
     }
 
@@ -72,9 +79,22 @@ MARKDOWN
      * @param array $data
      * @throws RobotWebHookException
      */
+    function markdownSend(array $data)
+    {
+        $this->send(array(
+            'msgtype'  => 'markdown',
+            'markdown' => $data
+        ));
+    }
+    /**
+     * @param array $data
+     * @throws RobotWebHookException
+     */
     public function send(array $data)
     {
-
+        if(!$this->config['web_hook_url']){
+            throw new RobotWebHookException('your web hook url', 100001);
+        }
         $res = $this->httpPostJson($this->config['web_hook_url'], json_encode($data));
         if ($res['httpCode'] != 200) {
             throw new RobotWebHookException($res['body'], $res['httpCode']);
