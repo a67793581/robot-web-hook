@@ -98,7 +98,7 @@ MARKDOWN
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-        return array('url' => $url, 'jsonStr'=>$jsonStr,'httpCode' => $httpCode, 'body' => $response);
+        return array('url' => $url, 'jsonStr' => $jsonStr, 'httpCode' => $httpCode, 'body' => $response);
     }
 
     /**
