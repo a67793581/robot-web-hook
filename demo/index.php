@@ -1,7 +1,7 @@
 <?php
 require_once '../vendor/autoload.php';
 
-use \RobotWebHook\Client;
+use RobotWebHook\Client;
 use RobotWebHook\Exceptions\RobotWebHookException;
 
 $a = new Client();
