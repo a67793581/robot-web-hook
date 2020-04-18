@@ -13,7 +13,11 @@ class Service
     //创建静态私有的变量保存该类对象
     static private $instance;
     //参数
-    private $config = [];
+    private $config = [
+        'web_hook_url' => '',
+        'client_drive' => '',
+        'secret'       => ''
+    ];
 
     //防止直接创建对象
     private function __construct($config = array())
@@ -39,8 +43,9 @@ class Service
 
     }
 
-    public function __get($key){
-        return isset($this->config[$key])?$this->config[$key]:null;
+    public function __get($key)
+    {
+        return isset($this->config[$key]) ? $this->config[$key] : null;
     }
 
     /**
@@ -50,7 +55,7 @@ class Service
     public function getClient()
     {
         $Service = self::getInstance();
-        switch ($Service->client_drive){
+        switch ($Service->client_drive) {
             case 'EnterpriseWeChatClient':
                 return new EnterpriseWeChatClient($this->config);
                 break;
@@ -58,7 +63,7 @@ class Service
                 return new DingTalkClient($this->config);
                 break;
             default:
-                throw new RobotWebHookException('client_drive is invalid'.$Service->client_drive);
+                throw new RobotWebHookException('client_drive is invalid' . $Service->client_drive);
                 break;
         }
     }
