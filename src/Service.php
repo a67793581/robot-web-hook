@@ -60,7 +60,7 @@ class Service
                 return new DingTalkClient($this->config);
                 break;
             default:
-                throw new RobotWebHookException('client_drive is invalid' . $Service->client_drive);
+                throw new RobotWebHookException('client_drive is invalid:' . $Service->client_drive);
                 break;
         }
     }

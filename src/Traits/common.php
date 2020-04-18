@@ -52,11 +52,12 @@ trait common
      * @param $str
      * @return string
      */
-    function transcoding_utf8($str){
+    function transcoding_utf8($str)
+    {
         //转码
-        $encoding=mb_detect_encoding($str,array("ASCII","UTF-8","GB2312","GBK","BIG5"));
-        if($encoding!='UTF-8'){
-            $str = mb_convert_encoding($str, 'utf-8',$encoding);
+        $encoding = mb_detect_encoding($str, array("ASCII", "UTF-8", "GB2312", "GBK", "BIG5"));
+        if ($encoding != 'UTF-8') {
+            $str = mb_convert_encoding($str, 'utf-8', $encoding);
         }
         return $str;
     }

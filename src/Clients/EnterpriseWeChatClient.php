@@ -31,12 +31,12 @@ class EnterpriseWeChatClient
     {
         $send_data = array(
             "content" => "异常警告:\n" . print_r(array(
-                    'app_name' => isset($data['app_name']) ?$data['app_name']: '',
-                    'env'      => isset($data['env']) ?$data['env']: '',
-                    'code'     => isset($data['code']) ?$data['code']: '',
-                    'message'  => isset($data['message']) ?$data['message']: '',
-                    'file'     => isset($data['file']) ?$data['file']: '',
-                    'line'     => isset($data['line']) ?$data['line']: '',
+                    'app_name' => isset($data['app_name']) ? $data['app_name'] : '',
+                    'env'      => isset($data['env']) ? $data['env'] : '',
+                    'code'     => isset($data['code']) ? $data['code'] : '',
+                    'message'  => isset($data['message']) ? $data['message'] : '',
+                    'file'     => isset($data['file']) ? $data['file'] : '',
+                    'line'     => isset($data['line']) ? $data['line'] : '',
                 ), true)
         );
         isset($data['mentioned_list']) && $send_data["mentioned_list"] = $data["mentioned_list"];
