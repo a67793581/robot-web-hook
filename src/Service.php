@@ -12,12 +12,9 @@ class Service
 {
     //创建静态私有的变量保存该类对象
     static private $instance;
+
     //参数
-    private $config = [
-        'web_hook_url' => '',
-        'client_drive' => '',
-        'secret'       => ''
-    ];
+    private $config = [];
 
     //防止直接创建对象
     private function __construct($config = array())
