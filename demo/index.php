@@ -7,11 +7,12 @@ use RobotWebHook\Service;
 
 //设置配置参数
 $config = [
-    //机器人接受请求的url
-//    'web_hook_url' => 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=1f292d89-da72-4821-a12b-efbbadba2750',
-    'web_hook_url' => 'https://oapi.dingtalk.com/robot/send?access_token=dd54da0effd485b4974ee4fd332c973c72b4bba574e8e0eb21a3ef221733d459',
-    'client_drive' => 'DingTalkClient',
-    'secret'=>'SECbb573eaffce59f940d14b23e0e8219c6c172a536dfa9e89075668bb1489be638'
+    'web_hook_url' => 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=1f292d89-da72-4821-a12b-efbbadba2750',
+    'client_drive' => 'EnterpriseWeChatClient',
+
+//    'web_hook_url' => 'https://oapi.dingtalk.com/robot/send?access_token=dd54da0effd485b4974ee4fd332c973c72b4bba574e8e0eb21a3ef221733d459',
+//    'client_drive' => 'DingTalkClient',
+//    'secret'=>'SECbb573eaffce59f940d14b23e0e8219c6c172a536dfa9e89075668bb1489be638'
 ];
 try {
 
