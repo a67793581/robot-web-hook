@@ -1,4 +1,5 @@
 <?php
 return array(
-    'web_hook_url' => ''
+    'web_hook_url' => '',
+    'client_drive'       => 'EnterpriseWeChatClient',
 );

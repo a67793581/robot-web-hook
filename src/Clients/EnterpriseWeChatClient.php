@@ -1,19 +1,18 @@
 <?php
 
 
-namespace RobotWebHook;
+namespace RobotWebHook\Clients;
 
 
 use RobotWebHook\Exceptions\RobotWebHookException;
 
-class Client
+class EnterpriseWeChatClient
 {
     private $config = array();
 
-    public function __construct($config = array())
+    public function __construct(array $config)
     {
-        $default_config = include_once(__DIR__ . '/Config/config.php');
-        $this->config   = array_merge($default_config, $config);
+        $this->config = $config;
     }
 
     public function getConfig()
@@ -29,12 +28,12 @@ class Client
     {
         $send_data = array(
             "content" => "异常警告:\n" . print_r(array(
-                    'app_name' => isset($data['app_name']) ?: '',
-                    'env'      => isset($data['env']) ?: '',
-                    'code'     => isset($data['code']) ?: '',
-                    'message'  => isset($data['message']) ?: '',
-                    'file'     => isset($data['file']) ?: '',
-                    'line'     => isset($data['line']) ?: '',
+                    'app_name' => isset($data['app_name']) ?$data['app_name']: '',
+                    'env'      => isset($data['env']) ?$data['env']: '',
+                    'code'     => isset($data['code']) ?$data['code']: '',
+                    'message'  => isset($data['message']) ?$data['message']: '',
+                    'file'     => isset($data['file']) ?$data['file']: '',
+                    'line'     => isset($data['line']) ?$data['line']: '',
                 ), true)
         );
         isset($data['mentioned_list']) && $send_data["mentioned_list"] = $data["mentioned_list"];
@@ -65,11 +64,12 @@ MARKDOWN
 
     /**
      * @param array $data
+     * @return array
      * @throws RobotWebHookException
      */
     function textSend(array $data)
     {
-        $this->send(array(
+        return $this->send(array(
             "msgtype" => "text",
             "text"    => $data
         ));
@@ -77,28 +77,32 @@ MARKDOWN
 
     /**
      * @param array $data
+     * @return array
      * @throws RobotWebHookException
      */
     function markdownSend(array $data)
     {
-        $this->send(array(
+        return $this->send(array(
             'msgtype'  => 'markdown',
             'markdown' => $data
         ));
     }
+
     /**
      * @param array $data
+     * @return array
      * @throws RobotWebHookException
      */
     public function send(array $data)
     {
-        if(!$this->config['web_hook_url']){
+        if (!$this->config['web_hook_url']) {
             throw new RobotWebHookException('your web hook url', 100001);
         }
         $res = $this->httpPostJson($this->config['web_hook_url'], json_encode($data));
         if ($res['httpCode'] != 200) {
             throw new RobotWebHookException($res['body'], $res['httpCode']);
         }
+        return $res;
     }
 
     function httpPostJson($url, $jsonStr)
