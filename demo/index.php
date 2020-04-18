@@ -11,7 +11,7 @@ $config = [
 //    'web_hook_url' => 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=1f292d89-da72-4821-a12b-efbbadba2750',
     'web_hook_url' => 'https://oapi.dingtalk.com/robot/send?access_token=dd54da0effd485b4974ee4fd332c973c72b4bba574e8e0eb21a3ef221733d459',
     'client_drive' => 'DingTalkClient',
-
+    'secret'=>'SECbb573eaffce59f940d14b23e0e8219c6c172a536dfa9e89075668bb1489be638'
 ];
 try {
 
@@ -31,8 +31,8 @@ try {
             'mentioned_list'        => '',//根据名字@需要提醒的人 默认不提醒
             'mentioned_mobile_list' => '',//根据手机号@需要提醒的人 默认不提醒
         ];
-        $data      = $Client->textExceptionFormat($exception);
-        $res       = $Client->textSend($data);
+        $data      = $Client->markdownExceptionFormat($exception);
+        $res       = $Client->markdownSend($data);
         print_r($res);
     }
 } catch (RobotWebHookException $e) {

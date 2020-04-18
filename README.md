@@ -13,9 +13,9 @@ use RobotWebHook\Service;
 //设置配置参数
 $config = [
     //机器人接受请求的url
-    'web_hook_url' => '',//你的地址
-    'client_drive' => 'DingTalkClient',//客户端驱动类型
-
+    'web_hook_url' => '你的地址',
+    //客户端驱动类型
+    'client_drive' => 'EnterpriseWeChatClient',
 ];
 try {
 
@@ -35,8 +35,8 @@ try {
             'mentioned_list'        => '',//根据名字@需要提醒的人 默认不提醒
             'mentioned_mobile_list' => '',//根据手机号@需要提醒的人 默认不提醒
         ];
-        $data      = $Client->textExceptionFormat($exception);
-        $res       = $Client->textSend($data);
+        $data      = $Client->markdownExceptionFormat($exception);
+        $res       = $Client->markdownSend($data);
         print_r($res);
     }
 } catch (RobotWebHookException $e) {
