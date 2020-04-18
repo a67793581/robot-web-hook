@@ -29,12 +29,12 @@ class DingTalkClient
 
         $send_data = array(
             "content" => "异常警告:\n" . print_r(array(
-                    'app_name' => isset($data['app_name']) ?$data['app_name']: '',
-                    'env'      => isset($data['env']) ?$data['env']: '',
-                    'code'     => isset($data['code']) ?$data['code']: '',
-                    'message'  => isset($data['message']) ?$data['message']: '',
-                    'file'     => isset($data['file']) ?$data['file']: '',
-                    'line'     => isset($data['line']) ?$data['line']: '',
+                    'app_name' => isset($data['app_name']) ? $data['app_name'] : '',
+                    'env'      => isset($data['env']) ? $data['env'] : '',
+                    'code'     => isset($data['code']) ? $data['code'] : '',
+                    'message'  => isset($data['message']) ? $data['message'] : '',
+                    'file'     => isset($data['file']) ? $data['file'] : '',
+                    'line'     => isset($data['line']) ? $data['line'] : '',
                 ), true)
         );
         return $send_data;
@@ -63,15 +63,20 @@ MARKDOWN
 
     /**
      * @param array $data
+     * @param array $atMobiles
+     * @param bool $is_at_all
      * @return array
      * @throws RobotWebHookException
      */
-    function textSend(array $data)
+    function textSend(array $data, array $atMobiles = [], $is_at_all = false)
     {
-        return $this->send(array(
-            "msgtype" => "text",
-            "text"    => $data
-        ));
+        $send_data = array(
+            'msgtype' => 'text',
+            'text'    => $data
+        );
+        $atMobiles && $send_data['at']["atMobiles"] = $atMobiles;
+        $is_at_all && $send_data['at']["isAtAll"] = $is_at_all;
+        return $this->send($send_data);
     }
 
     /**
@@ -106,8 +111,8 @@ MARKDOWN
         if ($res['httpCode'] != 200) {
             throw new RobotWebHookException($res['body'], $res['httpCode']);
         }
-        $body = json_decode($res['body'],true);
-        if($body['errcode']){
+        $body = json_decode($res['body'], true);
+        if ($body['errcode']) {
             throw new RobotWebHookException($res['body'], $res['httpCode']);
         }
         return $res;
