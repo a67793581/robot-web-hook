@@ -66,36 +66,36 @@ MARKDOWN
 
     /**
      * @param array $data
-     * @param array $atMobiles
+     * @param array $at_mobiles
      * @param bool $is_at_all
      * @return array
      * @throws RobotWebHookException
      */
-    function textSend(array $data, array $atMobiles = [], $is_at_all = false)
+    function textSend(array $data, array $at_mobiles = [], $is_at_all = false)
     {
         $send_data = array(
             'msgtype' => 'text',
             'text'    => $data
         );
-        $atMobiles && $send_data['at']["atMobiles"] = $atMobiles;
+        $at_mobiles && $send_data['at']["atMobiles"] = $at_mobiles;
         $is_at_all && $send_data['at']["isAtAll"] = $is_at_all;
         return $this->send($send_data);
     }
 
     /**
      * @param array $data
-     * @param array $atMobiles
+     * @param array $at_mobiles
      * @param bool $is_at_all
      * @return array
      * @throws RobotWebHookException
      */
-    function markdownSend(array $data, array $atMobiles = [], $is_at_all = false)
+    function markdownSend(array $data, array $at_mobiles = [], $is_at_all = false)
     {
         $send_data = array(
             'msgtype'  => 'markdown',
             'markdown' => $data
         );
-        $atMobiles && $send_data['at']["atMobiles"] = $atMobiles;
+        $at_mobiles && $send_data['at']["atMobiles"] = $at_mobiles;
         $is_at_all && $send_data['at']["isAtAll"] = $is_at_all;
         return $this->send($send_data);
     }
