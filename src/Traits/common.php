@@ -16,7 +16,6 @@ trait common
         return (float)sprintf('%.0f', (floatval($millisecond) + floatval($second)) * 1000);
     }
 
-
     /**
      * 获取字符过滤 用反斜线转义字符串
      *
