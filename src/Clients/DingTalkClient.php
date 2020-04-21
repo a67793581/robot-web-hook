@@ -221,12 +221,6 @@ MARKDOWN
         $url     = $this->config['web_hook_url'];
         $jsonStr = json_encode($data);
         if ($this->config['secret']) {
-            //    $t = time() * 1000;
-            //    $ts = $t."\n".$webhook->ding_key;
-            //    $sig = hash_hmac('sha256', $ts, $webhook->ding_key,true);
-            //    $sig = base64_encode($sig);
-            //    $sig = urlencode($sig);
-            //    $webhook->url = $webhook->url."&timestamp=".$t."&sign=".$sig;
             $secret = $this->config['secret'];
             $secret = $this->transcoding_utf8($secret);
             //获取当前毫秒
