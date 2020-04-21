@@ -45,6 +45,24 @@ class DingTalkClient
 
     /**
      * @param array $data
+     * @param array $at_mobiles
+     * @param bool $is_at_all
+     * @return array
+     * @throws RobotWebHookException
+     */
+    function textSend(array $data, array $at_mobiles = [], $is_at_all = false)
+    {
+        $send_data = array(
+            'msgtype' => 'text',
+            'text'    => $data
+        );
+        $at_mobiles && $send_data['at']["atMobiles"] = $at_mobiles;
+        $is_at_all && $send_data['at']["isAtAll"] = $is_at_all;
+        return $this->send($send_data);
+    }
+
+    /**
+     * @param array $data
      * @return array
      */
     function markdownExceptionFormat(array $data)
@@ -71,24 +89,6 @@ MARKDOWN
      * @return array
      * @throws RobotWebHookException
      */
-    function textSend(array $data, array $at_mobiles = [], $is_at_all = false)
-    {
-        $send_data = array(
-            'msgtype' => 'text',
-            'text'    => $data
-        );
-        $at_mobiles && $send_data['at']["atMobiles"] = $at_mobiles;
-        $is_at_all && $send_data['at']["isAtAll"] = $is_at_all;
-        return $this->send($send_data);
-    }
-
-    /**
-     * @param array $data
-     * @param array $at_mobiles
-     * @param bool $is_at_all
-     * @return array
-     * @throws RobotWebHookException
-     */
     function markdownSend(array $data, array $at_mobiles = [], $is_at_all = false)
     {
         $send_data = array(
@@ -97,6 +97,114 @@ MARKDOWN
         );
         $at_mobiles && $send_data['at']["atMobiles"] = $at_mobiles;
         $is_at_all && $send_data['at']["isAtAll"] = $is_at_all;
+        return $this->send($send_data);
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     * @throws RobotWebHookException
+     */
+    function feedCardFormat(array $data)
+    {
+        $send_data = array();
+        foreach ($data as $k => $v) {
+            if (!is_array($v)) {
+                throw new RobotWebHookException('Must be a 2D array', 200001);
+            }
+            $send_data[] = [
+                'title'      => isset($v['title']) ? $v['title'] : '这是一个机器人消息推送',
+                'messageURL' => isset($v['url']) ? $v['url'] : 'https://github.com/a67793581/robot-web-hook',
+                'picURL'     => isset($v['pic_url']) ? $v['pic_url'] : '',
+            ];
+        }
+        return $send_data;
+    }
+
+    /**
+     * @param $data
+     * @return array
+     * @throws RobotWebHookException
+     */
+    function feedCardSend(array $data)
+    {
+        return $this->send(array(
+            'msgtype'  => 'feedCard',
+            'feedCard' => array('articles' => $data),
+        ));
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    function linkFormat(array $data)
+    {
+        $send_data = array(
+            'title'      => isset($data['title']) ? $data['title'] : '这是一个机器人消息推送',
+            'text'       => isset($data['description']) ? $data['description'] : '',
+            'messageUrl' => isset($data['url']) ? $data['url'] : 'https://github.com/a67793581/robot-web-hook',
+            'picurl'     => isset($data['pic_url']) ? $data['pic_url'] : '',
+        );
+        return $send_data;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     * @throws RobotWebHookException
+     */
+    function linkSend(array $data)
+    {
+        $send_data = array(
+            'msgtype' => 'link',
+            'link'    => $data
+        );
+        return $this->send($send_data);
+    }
+
+    /**
+     * @param array $data
+     * @param array $buttons
+     * @return array
+     * @throws RobotWebHookException
+     */
+    function actionCardFormat(array $data,array $buttons)
+    {
+        $send_data = array(
+            'title'      => isset($data['title']) ? $data['title'] : '这是一个机器人消息推送',
+            'text'       => isset($data['description']) ? $data['description'] : '',
+            'btnOrientation'=> isset($data['orientation']) ? $data['orientation'] : '0',
+        );
+        $count = count($buttons);
+        foreach ($buttons as $k => $v) {
+            if (!is_array($v)) {
+                throw new RobotWebHookException('Must be a 2D array', 200001);
+            }
+            if ($count > 1) {
+                $send_data['btns'][] = [
+                    'title'     => isset($v['title']) ? $v['title'] : '这是一个机器人消息推送',
+                    'actionURL' => isset($v['url']) ? $v['url'] : 'https://github.com/a67793581/robot-web-hook',
+                ];
+            } else {
+                $send_data['singleTitle'] = isset($v['title']) ? $v['title'] : '这是一个机器人消息推送';
+                $send_data['singleURL']   = isset($v['url']) ? $v['url'] : '这是一个机器人消息推送';
+            }
+        }
+        return $send_data;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     * @throws RobotWebHookException
+     */
+    function actionCardSend(array $data)
+    {
+        $send_data = array(
+            'msgtype' => 'actionCard',
+            'actionCard'    => $data
+        );
         return $this->send($send_data);
     }
 

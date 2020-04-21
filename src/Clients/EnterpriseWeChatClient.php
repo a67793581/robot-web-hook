@@ -146,7 +146,7 @@ class EnterpriseWeChatClient
                 'title'       => isset($v['title']) ? $v['title'] : '这是一个机器人消息推送',
                 'description' => isset($v['description']) ? $v['description'] : '',
                 'url'         => isset($v['url']) ? $v['url'] : 'https://github.com/a67793581/robot-web-hook',
-                'picurl'      => isset($v['image_url']) ? $v['image_url'] : '',
+                'picurl'      => isset($v['pic_url']) ? $v['pic_url'] : '',
             ];
         }
         return $send_data;
