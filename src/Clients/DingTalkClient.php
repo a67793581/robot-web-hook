@@ -169,14 +169,14 @@ MARKDOWN
      * @return array
      * @throws RobotWebHookException
      */
-    function actionCardFormat(array $data,array $buttons)
+    function actionCardFormat(array $data, array $buttons)
     {
         $send_data = array(
-            'title'      => isset($data['title']) ? $data['title'] : '这是一个机器人消息推送',
-            'text'       => isset($data['description']) ? $data['description'] : '',
-            'btnOrientation'=> isset($data['orientation']) ? $data['orientation'] : '0',
+            'title'          => isset($data['title']) ? $data['title'] : '这是一个机器人消息推送',
+            'text'           => isset($data['description']) ? $data['description'] : '',
+            'btnOrientation' => isset($data['orientation']) ? $data['orientation'] : '0',
         );
-        $count = count($buttons);
+        $count     = count($buttons);
         foreach ($buttons as $k => $v) {
             if (!is_array($v)) {
                 throw new RobotWebHookException('Must be a 2D array', 200001);
@@ -202,8 +202,8 @@ MARKDOWN
     function actionCardSend(array $data)
     {
         $send_data = array(
-            'msgtype' => 'actionCard',
-            'actionCard'    => $data
+            'msgtype'    => 'actionCard',
+            'actionCard' => $data
         );
         return $this->send($send_data);
     }
