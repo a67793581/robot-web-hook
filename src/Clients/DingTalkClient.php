@@ -235,11 +235,11 @@ MARKDOWN
         }
         $res = $this->httpPostJson($url, $jsonStr);
         if ($res['httpCode'] != 200) {
-            throw new RobotWebHookException($res['body'], $res['httpCode']);
+            throw new RobotWebHookException(json_encode($res), 100002);
         }
         $body = json_decode($res['body'], true);
         if ($body['errcode']) {
-            throw new RobotWebHookException($res['body'], $res['httpCode']);
+            throw new RobotWebHookException(json_encode($res), 100003);
         }
         return $res;
     }

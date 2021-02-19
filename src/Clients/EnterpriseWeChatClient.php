@@ -177,7 +177,7 @@ class EnterpriseWeChatClient
         }
         $res = $this->httpPostJson($this->config['web_hook_url'], json_encode($data));
         if ($res['httpCode'] != 200) {
-            throw new RobotWebHookException($res['body'], $res['httpCode']);
+            throw new RobotWebHookException(json_encode($res), 100002);
         }
         return $res;
     }

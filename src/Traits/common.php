@@ -83,7 +83,8 @@ trait common
         );
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $error    = curl_error($ch);
         curl_close($ch);
-        return array('url' => $url, 'jsonStr' => $jsonStr, 'httpCode' => $httpCode, 'body' => $response);
+        return array('url' => $url, 'jsonStr' => $jsonStr, 'httpCode' => $httpCode, 'body' => $response, 'error' => $error);
     }
 }
